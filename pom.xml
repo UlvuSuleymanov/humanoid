@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.insta</groupId>
-	<artifactId>pomidro</artifactId>
+	<artifactId>humanoid</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pomidro</name>
-	<description>Instagram bot</description>
+	<name>humanoid</name>
+	<description>This can imitate you.</description>
 	<properties>
 		<java.version>20</java.version>
 	</properties>
@@ -36,6 +36,14 @@
 			<artifactId>jquery</artifactId>
 			<version>3.6.1</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.brunocvcunha.instagram4j/instagram4j -->
+		<dependency>
+			<groupId>org.brunocvcunha.instagram4j</groupId>
+			<artifactId>instagram4j</artifactId>
+			<version>1.14</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.webjars</groupId>
