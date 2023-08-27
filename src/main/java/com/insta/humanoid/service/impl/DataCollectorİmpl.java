@@ -1,6 +1,10 @@
 package com.insta.pomidro.service.impl;
 
-import com.insta.pomidro.service.DataCollector;
+import com.insta.pomidro.constants.FilePaths;
+import com.insta.pomidro.repo.impl.DataRepositoryImpl;
+import com.insta.pomidro.service.DataService;
+import com.insta.pomidro.util.AuthGuard;
+import com.insta.pomidro.util.FileUtil;
 import com.insta.pomidro.util.RandomSleep;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,11 +17,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Setter
 @NoArgsConstructor
-public class DataCollectorİmpl implements DataCollector {
+public class DataCollectorİmpl implements DataService {
     public  Instagram4j instagram = new Instagram4j("ad","das");
 
     Random random = new Random();
@@ -44,31 +49,25 @@ public class DataCollectorİmpl implements DataCollector {
 
     @Override
     public Set<InstagramUserSummary> getUserFollowers(String username) throws IOException, InterruptedException {
-        Set<InstagramUserSummary> users = new HashSet<>();
-
-        InstagramSearchUsernameResult userResult = instagram.sendRequest(new InstagramSearchUsernameRequest(username));
+        InstagramSearchUsernameResult userResult = AuthGuard.instagram4j.sendRequest(new InstagramSearchUsernameRequest(username));
         Thread.sleep(random.nextInt(2,7));
-
-        InstagramGetUserFollowersResult result =  instagram.sendRequest(new InstagramGetUserFollowersRequest(userResult.getUser().getPk(),null));
-
-        System.out.println("next max id"+result.next_max_id);
-        users.addAll(result.users);
-
-        for(int i =0;i<15;i++){
-            Thread.sleep(random.nextInt(2,7));
-            result = instagram.sendRequest(new InstagramGetUserFollowersRequest(userResult.getUser().getPk(),result.next_max_id));
-            users.addAll(users);
-            System.out.println("userfollower"+users.size());
-
-            RandomSleep.start(2,5);
+        if(userResult.getUser().is_private)
+        {
+            System.out.println("user is private");
+            return new HashSet<>();
         }
+        InstagramGetUserFollowersResult result =  AuthGuard.instagram4j.sendRequest(new InstagramGetUserFollowersRequest(userResult.getUser().getPk(),null));
 
+        Set<String> resultSet = result.users.stream().map(instagramUserSummary -> instagramUserSummary.getUsername()).collect(Collectors.toSet());
+        DataRepositoryImpl.targetUsers.addAll(resultSet);
+        FileUtil.appendLineList(FilePaths.TARGET_USERS,resultSet);
+        FileUtil.appendLine(FilePaths.POPULAR_USERS,username);
 
-        return users;
+        return new HashSet<>(result.users);
     }
 
     void writeUsers(Set<InstagramUserSummary> users) throws IOException {
-        FileWriter myWriter = new FileWriter("src/main/resources/static/TargetUsers");
+        FileWriter myWriter = new FileWriter("src/main/resources/static/TargetUsers.txt");
         users.forEach( user->
         {
             try {
@@ -84,7 +83,7 @@ public class DataCollectorİmpl implements DataCollector {
 
     Set<String> readPopularUsers() throws IOException {
         Set<String> usernames = new HashSet<>();
-        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/static/TargetPopularProfiles"));
+        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/static/TargetPopularProfiles.txt"));
             String line = reader.readLine();
 
             while (line != null) {

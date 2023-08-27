@@ -1,8 +1,11 @@
 package com.insta.pomidro.repo.impl;
 
 import com.insta.pomidro.repo.UserRepository;
+import com.insta.pomidro.util.AuthGuard;
 import lombok.extern.slf4j.Slf4j;
 import org.brunocvcunha.instagram4j.Instagram4j;
+import org.brunocvcunha.instagram4j.requests.InstagramSearchUsernameRequest;
+import org.brunocvcunha.instagram4j.requests.payload.InstagramUser;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
@@ -24,7 +27,12 @@ public class UserRepositoryImpl implements UserRepository {
      }
 
     @Override
+    public InstagramUser getUserByUsername(String username) throws IOException {
+     return  AuthGuard.instagram4j.sendRequest(new InstagramSearchUsernameRequest(username)).getUser();
+    }
+
+    @Override
     public Instagram4j get(String username) {
-     return     users.get(username);
+     return  users.get(username);
      }
 }
