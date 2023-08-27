@@ -1,7 +1,7 @@
-package com.insta.pomidro.controller;
+package com.insta.humanoid.controller;
 
-import com.insta.pomidro.model.request.UserRequestModel;
-import com.insta.pomidro.service.DataService;
+import com.insta.humanoid.model.request.UserRequestModel;
+import com.insta.humanoid.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.insta.pomidro.repo;
+package com.insta.humanoid.repo;
 
 import org.brunocvcunha.instagram4j.Instagram4j;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramUser;

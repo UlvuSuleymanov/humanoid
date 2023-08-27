@@ -1,4 +1,4 @@
-package com.insta.pomidro.util;
+package com.insta.humanoid.util;
 
 import java.util.Random;
 

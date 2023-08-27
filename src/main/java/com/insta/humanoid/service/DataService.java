@@ -1,4 +1,4 @@
-package com.insta.pomidro.service;
+package com.insta.humanoid.service;
 
 import org.brunocvcunha.instagram4j.requests.payload.InstagramUserSummary;
 

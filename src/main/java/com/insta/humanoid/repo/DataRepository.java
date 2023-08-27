@@ -1,4 +1,4 @@
-package com.insta.pomidro.repo;
+package com.insta.humanoid.repo;
 
 public interface DataRepository {
 }

@@ -1,11 +1,10 @@
-package com.insta.pomidro.service.impl;
+package com.insta.humanoid.service.impl;
 
-import com.insta.pomidro.constants.FilePaths;
-import com.insta.pomidro.repo.impl.DataRepositoryImpl;
-import com.insta.pomidro.service.DataService;
-import com.insta.pomidro.util.AuthGuard;
-import com.insta.pomidro.util.FileUtil;
-import com.insta.pomidro.util.RandomSleep;
+import com.insta.humanoid.constants.FilePaths;
+import com.insta.humanoid.repo.impl.DataRepositoryImpl;
+import com.insta.humanoid.service.DataService;
+import com.insta.humanoid.util.AuthGuard;
+import com.insta.humanoid.util.FileUtil;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.brunocvcunha.instagram4j.Instagram4j;

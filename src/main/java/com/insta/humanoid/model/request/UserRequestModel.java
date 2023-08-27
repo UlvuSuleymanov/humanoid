@@ -1,4 +1,4 @@
-package com.insta.pomidro.model.request;
+package com.insta.humanoid.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

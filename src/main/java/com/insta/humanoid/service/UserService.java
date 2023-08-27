@@ -1,6 +1,6 @@
-package com.insta.pomidro.service;
+package com.insta.humanoid.service;
 
-import com.insta.pomidro.model.request.UserRequestModel;
+import com.insta.humanoid.model.request.UserRequestModel;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;

@@ -1,8 +1,8 @@
-package com.insta.pomidro.controller;
+package com.insta.humanoid.controller;
 
-import com.insta.pomidro.model.request.UserRequestModel;
-import com.insta.pomidro.repo.UserRepository;
-import com.insta.pomidro.util.AuthGuard;
+import com.insta.humanoid.model.request.UserRequestModel;
+import com.insta.humanoid.repo.UserRepository;
+import com.insta.humanoid.util.AuthGuard;
 import org.brunocvcunha.instagram4j.requests.payload.InstagramUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

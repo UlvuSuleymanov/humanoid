@@ -1,13 +1,13 @@
-package com.insta.pomidro.util;
+package com.insta.humanoid.util;
 
-import com.insta.pomidro.constants.FilePaths;
+import com.insta.humanoid.constants.FilePaths;
+import com.insta.humanoid.repo.impl.DataRepositoryImpl;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class FileUtil {
@@ -51,5 +51,11 @@ public class FileUtil {
 
         myWriter.flush();
         myWriter.close();
+    }
+
+
+   public static void synchronize() throws IOException {
+        replaceLineList(FilePaths.TARGET_USERS, DataRepositoryImpl.targetUsers);
+
     }
 }

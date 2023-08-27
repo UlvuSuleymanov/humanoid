@@ -1,9 +1,9 @@
-package com.insta.pomidro.service.impl;
+package com.insta.humanoid.service.impl;
 
-import com.insta.pomidro.model.request.UserRequestModel;
-import com.insta.pomidro.repo.UserRepository;
-import com.insta.pomidro.service.UserService;
-import com.insta.pomidro.util.AuthGuard;
+import com.insta.humanoid.model.request.UserRequestModel;
+import com.insta.humanoid.repo.UserRepository;
+import com.insta.humanoid.service.UserService;
+import com.insta.humanoid.util.AuthGuard;
 import lombok.extern.slf4j.Slf4j;
 import org.brunocvcunha.instagram4j.Instagram4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
 
 @Service
 @Slf4j

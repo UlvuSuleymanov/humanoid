@@ -1,4 +1,4 @@
-package com.insta.pomidro.constants;
+package com.insta.humanoid.constants;
 
 public enum FilePaths {
     POPULAR_USERS("src/main/resources/static/TargetPopularProfiles.txt"),
