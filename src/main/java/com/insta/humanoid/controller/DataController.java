@@ -3,11 +3,13 @@ package com.insta.humanoid.controller;
 import com.insta.humanoid.model.request.UserRequestModel;
 import com.insta.humanoid.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
-@RestController
+@Controller
 @RequestMapping("api/data")
 public class DataController {
 
@@ -23,8 +25,8 @@ public class DataController {
 
 
     @PostMapping("user/follower")
-    String fetshUserData(UserRequestModel user) throws IOException, InterruptedException {
+    public String fetshUserData(UserRequestModel user, Model model) throws IOException, InterruptedException {
         dataService.getUserFollowers(user.getUsername());
-        return "data";
+        return "redirect:/data";
     }
 }

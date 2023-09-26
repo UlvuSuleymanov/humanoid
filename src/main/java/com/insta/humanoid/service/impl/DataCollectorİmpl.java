@@ -49,7 +49,7 @@ public class DataCollectorİmpl implements DataService {
     @Override
     public Set<InstagramUserSummary> getUserFollowers(String username) throws IOException, InterruptedException {
         InstagramSearchUsernameResult userResult = AuthGuard.instagram4j.sendRequest(new InstagramSearchUsernameRequest(username));
-        Thread.sleep(random.nextInt(2,7));
+        Thread.sleep(random.nextInt(2400,7000));
         if(userResult.getUser().is_private)
         {
             System.out.println("user is private");
@@ -58,7 +58,10 @@ public class DataCollectorİmpl implements DataService {
         InstagramGetUserFollowersResult result =  AuthGuard.instagram4j.sendRequest(new InstagramGetUserFollowersRequest(userResult.getUser().getPk(),null));
 
         Set<String> resultSet = result.users.stream().map(instagramUserSummary -> instagramUserSummary.getUsername()).collect(Collectors.toSet());
+
         DataRepositoryImpl.targetUsers.addAll(resultSet);
+        DataRepositoryImpl.popularUsers.add(username);
+
         FileUtil.appendLineList(FilePaths.TARGET_USERS,resultSet);
         FileUtil.appendLine(FilePaths.POPULAR_USERS,username);
 

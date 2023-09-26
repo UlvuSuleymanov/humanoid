@@ -10,24 +10,41 @@
           crossorigin="anonymous">
 </head>
 <body>
+
+
+<div th:replace="fragments/nav :: nav"></div>
+
+
 <div class="container-fluid">
-    <div class="row justify-content-center">
+    <div class="row">
         <div class="col-12 col-md-5 col-lg-4">
 
             <form th:action="@{/api/data/user/follower}" th:object="${user}" method="post">
 
                 <div cass="form-group">
                     <label for="exampleFormControlFile1">Target popular user</label>
-                    <input type="text" th:field="*{username}" class="form-control form-control-sm" id="exampleFormControlFile1">
-                    <button type="submit" class="btn btn success"> Get user followers </button>
+                    <input type="text" th:field="*{username}" class="form-control form-control-sm"
+                           id="exampleFormControlFile1">
+                    <button type="submit" class="btn btn success"> Get user followers</button>
                 </div>
 
             </form>
 
 
         </div>
+        <div class="col-12 col-md-5 col-lg-4">
+            <ul class="list-group" th:each="user : ${popularUsers}" >
+                <li  th:text="${user}">Cras justo odio</li>
 
+            </ul>
 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-5 col-lg-4">
+
+        </div>
     </div>
 
 
