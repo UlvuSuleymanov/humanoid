@@ -1,10 +1,5 @@
 package com.insta.humanoid.controller;
-
-import com.insta.humanoid.model.request.UserRequestModel;
-import com.insta.humanoid.repo.UserRepository;
-import com.insta.humanoid.repo.impl.DataRepositoryImpl;
-import com.insta.humanoid.util.AuthGuard;
-import org.brunocvcunha.instagram4j.requests.payload.InstagramUser;
+import com.insta.humanoid.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,49 +10,26 @@ import java.io.IOException;
 @Controller
 public class ViewController {
 
-
-    private final UserRepository userRepository;
+    private final ViewService viewService;
 
     @Autowired
-    public ViewController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public ViewController(ViewService viewService) {
+        this.viewService = viewService;
     }
 
     @GetMapping
-    String getIndex(Model model) throws IOException {
-
-        if (AuthGuard.userIsLoggedIn) {
-            InstagramUser instagramUser = userRepository.getUserByUsername(AuthGuard.instagram4j.getUsername());
-            model.addAttribute("user", instagramUser);
-            return "index";
-        } else {
-            model.addAttribute(new UserRequestModel("", ""));
-            return "redirect:/login";
-        }
+    String getIndex(Model model) throws IOException, InterruptedException {
+        return viewService.getHomePage(model);
     }
 
-
     @GetMapping("/login")
-    public String openLogin(Model model) throws IOException {
-        if (AuthGuard.userIsLoggedIn) {
-            InstagramUser instagramUser = userRepository.getUserByUsername(AuthGuard.instagram4j.getUsername());
-            model.addAttribute("user", instagramUser);
-            return "redirect:/";
-        } else {
-            model.addAttribute("user", new UserRequestModel("", ""));
-            return "login";
-        }
+    public String openLogin(Model model) throws IOException, InterruptedException {
+        return viewService.getLoginPage(model);
     }
 
     @GetMapping("/data")
     String getDataPage(Model model) {
-        model.addAttribute("user", new UserRequestModel("", ""));
-        model.addAttribute("popularUsers", DataRepositoryImpl.popularUsers);
-
-        if (AuthGuard.userIsLoggedIn)
-            return "data";
-        else
-            return "redirect:/login";
+        return viewService.getDataPage(model);
 
     }
 

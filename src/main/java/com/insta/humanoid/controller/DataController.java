@@ -1,7 +1,10 @@
 package com.insta.humanoid.controller;
 
 import com.insta.humanoid.model.request.UserRequestModel;
+import com.insta.humanoid.model.response.Statistic;
+import com.insta.humanoid.repo.impl.DataRepositoryImpl;
 import com.insta.humanoid.service.DataService;
+import com.insta.humanoid.service.ViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,13 +16,13 @@ import java.io.IOException;
 @RequestMapping("api/data")
 public class DataController {
 
-    private final ViewController viewController;
+    private final ViewService viewService;
 
     private final DataService dataService;
 
     @Autowired
-    public DataController(ViewController viewController, DataService dataService) {
-        this.viewController = viewController;
+    public DataController(ViewService viewService, DataService dataService) {
+        this.viewService = viewService;
         this.dataService = dataService;
     }
 
@@ -27,6 +30,12 @@ public class DataController {
     @PostMapping("user/follower")
     public String fetshUserData(UserRequestModel user, Model model) throws IOException, InterruptedException {
         dataService.getUserFollowers(user.getUsername());
-        return "redirect:/data";
+        return viewService.getDataPage(model);
+    }
+
+    @PostMapping("user/post")
+    public String getUserPosts(UserRequestModel user, Model model) throws IOException, InterruptedException {
+        dataService.getUserFollowers(user.getUsername());
+        return viewService.getDataPage(model);
     }
 }
